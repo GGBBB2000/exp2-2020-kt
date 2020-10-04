@@ -20,6 +20,7 @@ class Term(pcx: CParseContext?) : CParseRule() {
     @Throws(FatalErrorException::class)
     override fun semanticCheck(pcx: CParseContext) {
         factor.apply {
+            semanticCheck(pcx)
             this@Term.cType = cType // factor の型をそのままコピー
             this@Term.isConstant = isConstant
         }
