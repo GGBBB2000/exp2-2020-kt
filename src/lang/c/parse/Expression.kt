@@ -55,7 +55,7 @@ class Expression(pcx: CParseContext?) : CParseRule() {
     }
 }
 
-internal class ExpressionAdd(pcx: CParseContext?, private val left: CParseRule) : CParseRule() {
+internal class ExpressionAdd(pcx: CParseContext, private val left: CParseRule) : CParseRule() {
     // expressionAdd ::= '+' term
     private lateinit var op: CToken
     private lateinit var right: CParseRule
@@ -94,7 +94,7 @@ internal class ExpressionAdd(pcx: CParseContext?, private val left: CParseRule) 
 
     @Throws(FatalErrorException::class)
     override fun codeGen(pcx: CParseContext) {
-        pcx.ioContext.outStream.run {
+        pcx.ioContext.outStream?.run {
             left.codeGen(pcx) // 左部分木のコード生成を頼む
             right.codeGen(pcx) // 右部分木のコード生成を頼む
             println("\tMOV\t-(R6), R0\t; ExpressionAdd: ２数を取り出して、足し、積む<$op>")
