@@ -80,6 +80,10 @@ class CTokenizer constructor(private  val rule: CTokenRule)
                         startCol = colNo - 1
                         text.append(ch)
                         state = 4
+                    } else if (ch == '-') {
+                        startCol = colNo - 1
+                        text.append(ch)
+                        state = 5
                     } else {            // ヘンな文字を読んだ
                         startCol = colNo - 1
                         text.append(ch)
@@ -107,6 +111,10 @@ class CTokenizer constructor(private  val rule: CTokenRule)
                 }
                 4 -> {
                     tk = CToken(CToken.TK_PLUS, lineNo, startCol, "+")
+                    accept = true
+                }
+                5 -> {
+                    tk = CToken(CToken.TK_MINUS, lineNo, startCol, "-")
                     accept = true
                 }
             }
