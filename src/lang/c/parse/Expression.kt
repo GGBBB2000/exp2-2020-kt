@@ -1,6 +1,7 @@
 package lang.c.parse
 
 import lang.FatalErrorException
+import lang.TokenType
 import lang.c.CParseContext
 import lang.c.CParseRule
 import lang.c.CToken
@@ -106,7 +107,7 @@ internal class ExpressionAdd(pcx: CParseContext?, private val left: CParseRule) 
 
     companion object {
         fun isFirst(tk: CToken): Boolean {
-            return tk.type == CToken.TK_PLUS
+            return tk.type == TokenType.PLUS
         }
     }
 

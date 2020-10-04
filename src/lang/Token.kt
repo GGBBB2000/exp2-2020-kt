@@ -1,7 +1,7 @@
 package lang
 
 abstract class Token {
-    abstract val type: Int
+    abstract val type: TokenType
     abstract val text: String
     abstract val lineNo: Int
     abstract val columnNo: Int

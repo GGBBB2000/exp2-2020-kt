@@ -1,6 +1,7 @@
 package lang.c.parse
 
 import lang.FatalErrorException
+import lang.TokenType
 import lang.c.CParseContext
 import lang.c.CParseRule
 import lang.c.CToken
@@ -16,7 +17,7 @@ class Program(pcx: CParseContext) : CParseRule() {
         program.parse(pcx)
         val ct = pcx.tokenizer
         val tk = ct.getCurrentToken(pcx)
-        if (tk.type != CToken.TK_EOF) {
+        if (tk.type != TokenType.EOF) {
             pcx.fatalError(tk.toExplainString() + "プログラムの最後にゴミがあります")
         }
     }

@@ -1,5 +1,6 @@
 package lang.c
 
+import lang.TokenType
 import lang.Tokenizer
 import java.io.IOException
 import java.io.InputStream
@@ -87,11 +88,11 @@ class CTokenizer constructor(private  val rule: CTokenRule)
                     }
                 }
                 1 -> {
-                    tk = CToken(CToken.TK_EOF, lineNo, startCol, "end_of_file")
+                    tk = CToken(TokenType.EOF, lineNo, startCol, "end_of_file")
                     accept = true
                 }
                 2 -> {
-                    tk = CToken(CToken.TK_ILL, lineNo, startCol, text.toString())
+                    tk = CToken(TokenType.ILL, lineNo, startCol, text.toString())
                     accept = true
                 }
                 3 -> {
@@ -101,12 +102,12 @@ class CTokenizer constructor(private  val rule: CTokenRule)
                     } else {
                         // 数の終わり
                         backChar(ch) // 数を表さない文字は戻す（読まなかったことにする）
-                        tk = CToken(CToken.TK_NUM, lineNo, startCol, text.toString())
+                        tk = CToken(TokenType.NUM, lineNo, startCol, text.toString())
                         accept = true
                     }
                 }
                 4 -> {
-                    tk = CToken(CToken.TK_PLUS, lineNo, startCol, "+")
+                    tk = CToken(TokenType.PLUS, lineNo, startCol, "+")
                     accept = true
                 }
             }
