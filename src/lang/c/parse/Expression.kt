@@ -7,7 +7,7 @@ import lang.c.CToken
 import lang.c.CType
 import lang.c.CType.Companion.getCType
 
-class Expression(pcx: CParseContext?) : CParseRule() {
+class Expression(pcx: CParseContext) : CParseRule() {
     // expression ::= term { expressionAdd }
     private lateinit var expression: CParseRule
 
