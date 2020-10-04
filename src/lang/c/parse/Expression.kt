@@ -21,12 +21,13 @@ class Expression(pcx: CParseContext) : CParseRule() {
         val ct = pcx.tokenizer
         var tk = ct.getCurrentToken(pcx)
 
-        while (ExpressionAdd.isFirst(tk) or ExpressionSub.isFirst(tk)) {
+        loop@ while (ExpressionAdd.isFirst(tk) or ExpressionSub.isFirst(tk)) {
             list = when (tk.type) {
-                CToken.TK_PLUS -> ExpressionAdd(pcx, term)
-                CToken.TK_MINUS -> ExpressionSub(pcx, term)
+                TokenType.PLUS -> ExpressionAdd(pcx, term)
+                TokenType.MINUS -> ExpressionSub(pcx, term)
                 else -> {
-                    TODO("CTokenをenumにする")
+                    pcx.fatalError("ExpAddかExpSubのisFirstでエラー")
+                    break@loop
                 }
             }.apply { parse(pcx) }
             term = list
@@ -167,7 +168,7 @@ internal class ExpressionSub(pcx: CParseContext, private val left: CParseRule) :
 
     companion object {
         fun isFirst(tk: CToken): Boolean {
-            return tk.type == CToken.TK_MINUS
+            return tk.type == TokenType.MINUS
         }
     }
 

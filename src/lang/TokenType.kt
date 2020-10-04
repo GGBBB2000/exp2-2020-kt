@@ -6,4 +6,5 @@ enum class TokenType {
     EOF,    // （ファイルの終端記号）
     ILL,    // 未定義トークン
     PLUS,   // +
+    MINUS
 }

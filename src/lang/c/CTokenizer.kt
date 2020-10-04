@@ -115,7 +115,7 @@ class CTokenizer constructor(private  val rule: CTokenRule)
                     accept = true
                 }
                 5 -> {
-                    tk = CToken(CToken.TK_MINUS, lineNo, startCol, "-")
+                    tk = CToken(TokenType.MINUS, lineNo, startCol, "-")
                     accept = true
                 }
             }
