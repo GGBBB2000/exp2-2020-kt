@@ -1,6 +1,7 @@
 package lang.c.parse
 
 import lang.FatalErrorException
+import lang.TokenType
 import lang.c.CParseContext
 import lang.c.CParseRule
 import lang.c.CToken
@@ -35,7 +36,7 @@ class Number(pcx: CParseContext?) : CParseRule() {
 
     companion object {
         fun isFirst(tk: CToken): Boolean {
-            return tk.type == CToken.TK_NUM
+            return tk.type == TokenType.NUM
         }
     }
 }

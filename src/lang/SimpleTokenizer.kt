@@ -143,7 +143,7 @@ class SimpleTokenizer : Tokenizer<SimpleToken, SimpleParseContext>() {
         } while (charSet[ch.toInt()] == CHAR_SPACE)
         startCol = colNo // この桁からトークンが始まる
         if (ch == (-1).toChar()) { // EOF
-            tk = SimpleToken(SimpleToken.TK_EOF, lineNo, startCol, "end_of_file")
+            tk = SimpleToken(TokenType.EOF, lineNo, startCol, "end_of_file")
         } else {
             val s: String
             when (charSet[ch.toInt()]) {
@@ -154,7 +154,7 @@ class SimpleTokenizer : Tokenizer<SimpleToken, SimpleParseContext>() {
                     } while (charSet[ch.toInt()] == CHAR_ALPHA || charSet[ch.toInt()] == CHAR_NUM)
                     backChar(ch)
                     s = text.toString()
-                    tk = SimpleToken(SimpleToken.TK_IDENT, lineNo, startCol, s)
+                    tk = SimpleToken(TokenType.IDENT, lineNo, startCol, s)
                 }
                 CHAR_NUM -> {
                     if (ch == '0') {
@@ -171,7 +171,7 @@ class SimpleTokenizer : Tokenizer<SimpleToken, SimpleParseContext>() {
                                 backChar(ch)
                             } else {                                        // 中途半端な16進数
                                 backChar(ch)
-                                tk = SimpleToken(SimpleToken.TK_ILL, lineNo, startCol, text.toString())
+                                tk = SimpleToken(TokenType.ILL, lineNo, startCol, text.toString())
                             }
                         } else if (useOctalNumber) {                    // 8進数
                             while (ch in '0'..'7') {
@@ -193,12 +193,12 @@ class SimpleTokenizer : Tokenizer<SimpleToken, SimpleParseContext>() {
                         } while (charSet[ch.toInt()] == CHAR_NUM)
                         backChar(ch)
                     }
-                    tk = SimpleToken(SimpleToken.TK_NUM, lineNo, startCol, text.toString())
+                    tk = SimpleToken(TokenType.NUM, lineNo, startCol, text.toString())
                 }
                 CHAR_PUNCT -> {
                     text.append(ch)
                     s = text.toString()
-                    tk = SimpleToken(SimpleToken.TK_ILL, lineNo, startCol, s)
+                    tk = SimpleToken(TokenType.ILL, lineNo, startCol, s)
                 }
             }
         }
