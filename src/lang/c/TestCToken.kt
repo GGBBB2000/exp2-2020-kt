@@ -2,6 +2,7 @@ package lang.c
 
 import lang.FatalErrorException
 import lang.IOContext
+import lang.TokenType
 
 object TestCToken {
     @JvmStatic
@@ -29,8 +30,8 @@ object TestCToken {
     (pcx: CParseContext) : CParseRule() {
         override fun parse(ctx: CParseContext) {
             var tk = ctx.tokenizer.getCurrentToken(ctx)
-            while (tk.type != CToken.TK_EOF) {
-                if (tk.type == CToken.TK_NUM) {
+            while (tk.type != TokenType.EOF) {
+                if (tk.type == TokenType.NUM) {
                     ctx.ioContext.outStream?.println("Token=" + tk.toExplainString() + "type=" + tk.type + " valule=" + tk.intValue)
                 } else {
                     ctx.ioContext.outStream?.println("Token=" + tk.toExplainString() + "type=" + tk.type)
